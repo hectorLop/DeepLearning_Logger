@@ -1,0 +1,10 @@
+name: deeplearning_logger
+channels:
+  - conda-forge
+dependencies:
+  - python=3.7
+  - numpy
+  - pandas
+  - jupyterlab
+  - tensorflow
+  - keras
