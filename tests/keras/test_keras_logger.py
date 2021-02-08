@@ -21,12 +21,12 @@ def get_model():
 
 def test_keras_logger(get_model):
     model = get_model
-    experiment = Experiment('prueba', model)
+    project_path = os.path.dirname(os.path.realpath(__file__)) + '/project/'
+    experiment = Experiment(project_path=project_path, name='prueba', model=model)
 
-    path = os.path.dirname(os.path.realpath(__file__)) + '/'
+    experiment.register_experiment()
 
-    experiment.register_experiment(path=path)
-
-    assert os.path.isfile(path + 'architecture.json')
-    assert os.path.isfile(path + 'optimizer.json')
-    assert os.path.isfile(path + 'experiment_config.json')
+    assert os.path.isdir(project_path + 'prueba')
+    assert os.path.isfile(project_path + 'prueba/architecture.json')
+    assert os.path.isfile(project_path + 'prueba/optimizer.json')
+    assert os.path.isfile(project_path + 'prueba/experiment_config.json')
