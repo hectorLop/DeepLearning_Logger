@@ -6,16 +6,16 @@ from datetime import datetime
 from typing import List
 
 class Experiment():
-    def __init__(self, project_path: str, name: str, model: object) -> None:
+    def __init__(self, project_path: str, name: str, model: object, metrics_history: pd.DataFrame=None) -> None:
         self._model = model
         self._description = ''
         self._datetime = datetime.now()
         self._name = name
         self._project_path = project_path
 
-    def register_experiment(self, metrics_history: pd.DataFrame=None):
+    def register_experiment(self):
         # Creates the experiment folder
-        experiment_path = self._project_path + self._name + '/'
+        experiment_path = self._project_path + '/' + self._name + '/'
         os.makedirs(experiment_path)
 
         # Obtains the experiment configs
