@@ -1,21 +1,38 @@
 from src.keras.keras_logger import Experiment
+from src.keras.configs import Config
+from typing import List
 
 import os
-import pandas as pd
 
 class Project():
-    def __init__(self, project_path: str, project_name: str) -> None:
+    def __init__(self, project_name: str, project_path: str=os.path.dirname(os.path.realpath(__file__))) -> None:
         self._project_path = project_path
         self._project_name = project_name
         self._project_folder_path = self._create_project_folder()
 
-    def create_experiment(self, experiment_name: str, model: object=None, metrics_history: pd.DataFrame=None):
-        experiment = Experiment(self._project_folder_path, experiment_name, model, metrics_history)
+    def create_experiment(self, experiment_name: str, configs: List[Config]):
+        if not experiment_name:
+            raise ValueError('Must use a non empty experiment name')
 
+        experiment_folder_path = self._create_experiment_folder(experiment_name)
+        experiment = Experiment(experiment_folder_path, experiment_name, configs=configs)
         experiment.register_experiment()
 
+    def open_experiment(self):
+        pass
+
+    def list_experiments(self):
+        pass
+
+    def _create_experiment_folder(self, experiment_name: str) -> str:
+        experiment_folder_path = self._project_folder_path  + experiment_name + '/'
+
+        os.makedirs(experiment_folder_path)
+
+        return experiment_folder_path
+
     def _create_project_folder(self):
-        project_folder_path = self._project_path + '/' + self._project_name
+        project_folder_path = self._project_path + '/' + self._project_name + '/'
 
         if not os.path.isdir(project_folder_path):
             os.makedirs(project_folder_path)
