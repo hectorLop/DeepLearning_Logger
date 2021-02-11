@@ -13,15 +13,15 @@ class MetricsConfig(Config):
         super().__init__(data)
 
     def get_config(self):
-        training_loss, validation_loss = self._data['loss'], self._data['val_loss']
+        training_loss, validation_loss = self._data['train_loss'], self._data['val_loss']
         config = {}
 
-        for idx, train_loss, val_loss in enumerate(zip(training_loss, validation_loss)):
+        for idx, values in enumerate(zip(training_loss, validation_loss)):
             config[f'epoch_{idx + 1}'] = {
-                'train_loss': train_loss,
-                'val_loss': val_loss
+                'train_loss': values[0],
+                'val_loss': values[1]
             }
-
+        
         return 'metrics', config
 
 class ModelConfig(Config):
