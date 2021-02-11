@@ -4,7 +4,7 @@ import os
 
 from datetime import datetime
 from typing import List
-from src.keras.configs import Config, ModelConfig, MetricsConfig
+from src.keras.configs import Config
 
 class Experiment():
     def __init__(self, experiment_path: str, name: str, configs: List[Config]) -> None:
