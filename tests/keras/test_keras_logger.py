@@ -42,6 +42,15 @@ def test_keras_logger_log_model(get_model):
     assert os.path.isfile(experiement_path + 'experiment_config.json')
     assert os.path.isfile(experiement_path + 'experiment_data.json')
 
+    with open(experiement_path + 'experiment_config.json') as file:
+        experiment_info = json.load(file)
+
+    with open(experiement_path + 'experiment_data.json') as file:
+        experiment_data = json.load(file)
+
+    assert experiment_info['name'] == 'log_model'
+    assert experiment_data['model']['model_config']['name'] == 'sequential_1'
+
 def test_keras_logger_log_metrics(get_metrics):
     experiement_path = os.path.dirname(os.path.realpath(__file__)) + '/project_01/log_metrics/'
 
@@ -52,3 +61,13 @@ def test_keras_logger_log_metrics(get_metrics):
 
     assert os.path.isfile(experiement_path + 'experiment_config.json')
     assert os.path.isfile(experiement_path + 'experiment_data.json')
+
+    with open(experiement_path + 'experiment_config.json') as file:
+        experiment_info = json.load(file)
+
+    with open(experiement_path + 'experiment_data.json') as file:
+        experiment_data = json.load(file)
+
+    assert experiment_info['name'] == 'log_metrics'
+    assert experiment_data['metrics']['epoch_1']['train_loss'] == 0
+    assert experiment_data['metrics']['epoch_1']['val_loss'] == 0
