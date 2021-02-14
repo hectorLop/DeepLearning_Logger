@@ -32,6 +32,9 @@ def get_metrics():
     return metrics_df
 
 def test_keras_logger_log_model(get_model):
+    """
+    Tests logging an experiment containing a model
+    """
     experiement_path = os.path.dirname(os.path.realpath(__file__)) + '/project_01/log_model/'
 
     configs = [ModelConfig(get_model)]
@@ -52,6 +55,9 @@ def test_keras_logger_log_model(get_model):
     assert experiment_data['model']['model_config']['name'] == 'sequential_1'
 
 def test_keras_logger_log_metrics(get_metrics):
+    """
+    Tests logging an experiment containing metrics
+    """
     experiement_path = os.path.dirname(os.path.realpath(__file__)) + '/project_01/log_metrics/'
 
     configs = [MetricsConfig(get_metrics)]

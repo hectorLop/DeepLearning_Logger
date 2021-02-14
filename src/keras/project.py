@@ -5,12 +5,41 @@ from typing import List
 import os
 
 class Project():
-    def __init__(self, project_name: str, project_path: str=os.path.dirname(os.path.realpath(__file__))) -> None:
+    """
+    Deeplearning Project.
+
+    Parameters
+    ----------
+    project_name : str
+        Project name
+    proejct_path : str
+        Path where to create the project.
+
+    Attributes
+    ----------
+    _project_path : str
+        Path were to create the project
+    _project_name : str
+        Project name
+    _project_folder_path : str
+        Path to the project folder
+    """
+    def __init__(self, project_name: str, project_path: str) -> None:
         self._project_path = project_path
         self._project_name = project_name
         self._project_folder_path = self._create_folder([project_path, project_name])
 
-    def create_experiment(self, experiment_name: str='', configs: List[Config]=[]):
+    def create_experiment(self, experiment_name: str='', configs: List[Config]=[]) -> None:
+        """
+        Creates an experiment inside the project.
+
+        Parameters
+        ----------
+        experiment_name : str
+            Experiment's name. Default is an empty string.
+        configs : List
+            Configurations list. Default is an empty list.
+        """
         if not experiment_name:
             raise ValueError('Must use a non empty experiment name')
         if not configs:
@@ -26,7 +55,20 @@ class Project():
     def list_experiments(self):
         pass
 
-    def _create_folder(self, paths: List[str]=[]):
+    def _create_folder(self, paths: List[str]=[]) -> str:
+        """
+        Creates a folder from a list of paths.
+
+        Parameters
+        ----------
+        paths : List[str]
+            List of paths to concatenate. Default is an empty list
+
+        Returns
+        -------
+        folder_path : str
+            Path to the folder created
+        """
         if not paths:
             raise ValueError('Path lists cannot be empty')
         
