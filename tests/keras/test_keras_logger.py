@@ -75,8 +75,8 @@ def test_keras_logger_log_metrics(get_metrics):
         experiment_data = json.load(file)
 
     assert experiment_info['name'] == 'log_metrics'
-    assert experiment_data['metrics']['epoch_1']['train_loss'] == 0
-    assert experiment_data['metrics']['epoch_1']['val_loss'] == 0
+    assert experiment_data['metrics']['epoch_0']['train_loss'] == 0
+    assert experiment_data['metrics']['epoch_0']['val_loss'] == 0
 
 def test_keras_logger_log_experiment(get_metrics, get_model):
     """
@@ -102,5 +102,5 @@ def test_keras_logger_log_experiment(get_metrics, get_model):
     assert experiment_data['model']['model_config']['name'] == 'sequential_2'
 
     assert experiment_info['name'] == 'log_experiment'
-    assert experiment_data['metrics']['epoch_1']['train_loss'] == 0
-    assert experiment_data['metrics']['epoch_1']['val_loss'] == 0
+    assert experiment_data['metrics']['epoch_0']['train_loss'] == 0
+    assert experiment_data['metrics']['epoch_0']['val_loss'] == 0
