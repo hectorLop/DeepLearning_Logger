@@ -29,7 +29,7 @@ class Project():
         self._project_name = project_name
         self._project_folder_path = self._create_folder([project_path, project_name])
 
-    def create_experiment(self, experiment_name: str='', configs: List[Config]=[]) -> None:
+    def create_experiment(self, experiment_name: str='', configs: List[Config]=[], description: str='') -> None:
         """
         Creates an experiment inside the project.
 
@@ -46,7 +46,7 @@ class Project():
             raise ValueError('The configurations list is empty, there are nothing to log')
 
         experiment_folder_path = self._create_folder([self._project_folder_path, experiment_name])
-        experiment = Experiment(experiment_folder_path, experiment_name, configs=configs)
+        experiment = Experiment(experiment_folder_path, experiment_name, configs=configs, description=description)
         experiment.register_experiment()
 
     def open_experiment(self):

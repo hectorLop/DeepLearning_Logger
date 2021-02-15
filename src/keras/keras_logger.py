@@ -32,8 +32,8 @@ class Experiment():
     _configs : List
         Configurations list.
     """
-    def __init__(self, experiment_path: str, name: str, configs: List[Config]) -> None:
-        self._description = ''
+    def __init__(self, experiment_path: str, name: str, configs: List[Config], description: str='') -> None:
+        self._description = description
         self._datetime = datetime.now()
         self._name = name
         self._experiment_path = experiment_path

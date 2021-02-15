@@ -77,3 +77,30 @@ def test_keras_logger_log_metrics(get_metrics):
     assert experiment_info['name'] == 'log_metrics'
     assert experiment_data['metrics']['epoch_1']['train_loss'] == 0
     assert experiment_data['metrics']['epoch_1']['val_loss'] == 0
+
+def test_keras_logger_log_experiment(get_metrics, get_model):
+    """
+    Tests logging an experiment containing metrics
+    """
+    experiement_path = os.path.dirname(os.path.realpath(__file__)) + '/project_01/log_experiment/'
+
+    configs = [MetricsConfig(get_metrics), ModelConfig(get_model)]
+    experiment = Experiment(experiment_path=experiement_path, name='log_experiment', configs=configs, description='experimento de prueba')
+
+    experiment.register_experiment()
+
+    assert os.path.isfile(experiement_path + 'experiment_config.json')
+    assert os.path.isfile(experiement_path + 'experiment_data.json')
+
+    with open(experiement_path + 'experiment_config.json') as file:
+        experiment_info = json.load(file)
+
+    with open(experiement_path + 'experiment_data.json') as file:
+        experiment_data = json.load(file)
+
+    assert experiment_info['name'] == 'log_experiment'
+    assert experiment_data['model']['model_config']['name'] == 'sequential_2'
+
+    assert experiment_info['name'] == 'log_experiment'
+    assert experiment_data['metrics']['epoch_1']['train_loss'] == 0
+    assert experiment_data['metrics']['epoch_1']['val_loss'] == 0
