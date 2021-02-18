@@ -33,3 +33,17 @@ class ModelConfig(Config):
         }
 
         return 'model', config
+
+class CheckpointConfig(Config):
+    def __init__(self, data: object) -> None:
+        super().__init__(data)
+
+    def get_config(self):
+        checkpoint_path = self._data.filepath.split('/')
+        checkpoint_folder = '/'.join(checkpoint_path[:-1]) + '/'
+
+        config = {
+            'checkpoints_folder': checkpoint_folder
+        }
+
+        return 'checkpoints', config
