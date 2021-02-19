@@ -132,3 +132,21 @@ def test_keras_logger_log_checkpoint():
     assert experiment_info['description'] == 'experimento de prueba'
 
     assert experiment_data['checkpoints']['checkpoints_folder'] == experiement_path
+
+def test_keras_logger_log_non_config():
+    """
+    Tests logging an experiment containing a non Config object
+    """
+    experiement_path = os.path.dirname(os.path.realpath(__file__)) + '/project_01/log_checkpoint/'
+    checkpoints_path = experiement_path + 'checkpoint.h5'
+
+    # Creating the non config object
+    configs = [ModelCheckpoint(checkpoints_path)]
+    # Creating the experiment
+    experiment = Experiment(experiment_path=experiement_path, name='log_checkpoint',
+                            configs=configs, description='experimento de prueba')
+
+    with pytest.raises(ValueError) as exception_info:
+        experiment.register_experiment()
+
+    assert str(exception_info.value) == 'ModelCheckpoint is not a Config object'

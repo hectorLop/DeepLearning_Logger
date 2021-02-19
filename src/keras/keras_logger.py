@@ -48,6 +48,9 @@ class Experiment():
         experiment_data = {}
 
         for config in self._configs:
+            if not isinstance(config, Config):
+                raise ValueError(f'{config.__class__.__name__} is not a Config object')
+            
             name, data = config.get_config()
             experiment_data[name] = data
 
