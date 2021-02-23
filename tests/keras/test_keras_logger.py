@@ -131,7 +131,7 @@ def test_keras_logger_log_checkpoint():
     assert experiment_info['name'] == 'log_checkpoint'
     assert experiment_info['description'] == 'experimento de prueba'
 
-    assert experiment_data['checkpoints']['checkpoints_folder'] == experiement_path
+    assert experiment_data['checkpoints']['checkpoints_folder'] == checkpoints_path
 
 def test_keras_logger_log_non_config():
     """

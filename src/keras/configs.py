@@ -48,11 +48,8 @@ class CheckpointConfig(Config):
         super().__init__(data)
 
     def get_config(self):
-        checkpoint_path = self._data.filepath.split('/')
-        checkpoint_folder = '/'.join(checkpoint_path[:-1]) + '/'
-
         config = {
-            'checkpoints_folder': checkpoint_folder
+            'checkpoints_folder': self._data.filepath
         }
 
         return 'checkpoints', config
