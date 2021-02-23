@@ -37,7 +37,9 @@ At this point, you must perform the model training and then create the experimen
 
 ```python
 history = model.fit(...)
-metric_config = MetricsConfig(history)
+metrics = pd.DataFrame(history.history)
+
+metric_config = MetricsConfig(metrics)
 model_config = ModelConfig(model)
 
 project.create_experiment('experiment_name', configs=[metric_config, model_config])
