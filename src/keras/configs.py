@@ -1,5 +1,10 @@
 from abc import ABC, abstractmethod
+from typing import Callable
 import numpy as np
+from typeguard import typechecked
+from keras.models import Model
+from keras.callbacks import Callback
+import pandas as pd
 
 class Config(ABC):
     def __init__(self, data: object) -> None:
@@ -10,7 +15,8 @@ class Config(ABC):
         pass
 
 class MetricsConfig(Config):
-    def __init__(self, data: object) -> None:
+    @typechecked
+    def __init__(self, data: pd.DataFrame) -> None:
         super().__init__(data)
 
     def get_config(self):
@@ -24,7 +30,8 @@ class MetricsConfig(Config):
         return 'metrics', config
 
 class ModelConfig(Config):
-    def __init__(self, model: object) -> None:
+    @typechecked
+    def __init__(self, model: Model) -> None:
         super().__init__(model)
 
     def get_config(self):
@@ -43,13 +50,25 @@ class ModelConfig(Config):
 
         return 'model', config
 
-class CheckpointConfig(Config):
-    def __init__(self, data: object) -> None:
+class CallbackConfig(Config):
+    @typechecked
+    def __init__(self, data: Callback) -> None:
         super().__init__(data)
 
     def get_config(self):
+        callback_attributes = self._data.__dict__
+        public_attributes = {}
+
+        for key,value in callback_attributes.items():
+            # We don't want to serialize public attributes. Also, Callables
+            # are not JSON serializable
+            if key[0] != '_' and not isinstance(value, Callable):
+                public_attributes[key] = value
+
+        callback_name = self._data.__class__.__name__
+
         config = {
-            'checkpoints_folder': self._data.filepath
+            callback_name: public_attributes
         }
 
-        return 'checkpoints', config
+        return 'callbacks', config
