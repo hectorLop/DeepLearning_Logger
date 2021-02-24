@@ -50,10 +50,9 @@ def test_create_experiment_empty_name_exception():
     project_path = os.path.dirname(os.path.realpath(__file__))
     name = 'project_02'
     project = Project(project_name=name, project_path=project_path)
-    configs = [ModelConfig(get_model)]
 
     with pytest.raises(ValueError) as exception_info:
-        project.create_experiment(configs=configs)
+        project.create_experiment()
 
     assert str(exception_info.value) == 'Must use a non empty experiment name'
 

@@ -7,7 +7,7 @@ import os
 import pandas as pd
 
 from src.keras.keras_logger import Experiment
-from src.keras.configs import MetricsConfig, ModelConfig, CheckpointConfig
+from src.keras.configs import MetricsConfig, ModelConfig, CallbackConfig
 from keras.callbacks import ModelCheckpoint
 
 @pytest.fixture
@@ -38,7 +38,6 @@ def test_keras_logger_log_model(get_model):
     Tests logging an experiment containing a model
     """
     experiement_path = os.path.dirname(os.path.realpath(__file__)) + '/project_01/log_model/'
-
     configs = [ModelConfig(get_model)]
     experiment = Experiment(experiment_path=experiement_path, name='log_model', configs=configs)
 
@@ -107,15 +106,15 @@ def test_keras_logger_log_experiment(get_metrics, get_model):
     assert experiment_data['metrics']['epoch_0']['train_loss'] == 0
     assert experiment_data['metrics']['epoch_0']['val_loss'] == 0
 
-def test_keras_logger_log_checkpoint():
+def test_keras_logger_log_callbacks():
     """
     Tests logging an experiment containing metrics
     """
-    experiement_path = os.path.dirname(os.path.realpath(__file__)) + '/project_01/log_checkpoint/'
+    experiement_path = os.path.dirname(os.path.realpath(__file__)) + '/project_01/log_callbacks/'
     checkpoints_path = experiement_path + 'checkpoint.h5'
 
-    configs = [CheckpointConfig(ModelCheckpoint(checkpoints_path))]
-    experiment = Experiment(experiment_path=experiement_path, name='log_checkpoint', configs=configs, description='experimento de prueba')
+    configs = [CallbackConfig(ModelCheckpoint(checkpoints_path))]
+    experiment = Experiment(experiment_path=experiement_path, name='log_callbacks', configs=configs, description='experimento de prueba')
 
     experiment.register_experiment()
 
@@ -128,10 +127,10 @@ def test_keras_logger_log_checkpoint():
     with open(experiement_path + 'experiment_data.json') as file:
         experiment_data = json.load(file)
 
-    assert experiment_info['name'] == 'log_checkpoint'
+    assert experiment_info['name'] == 'log_callbacks'
     assert experiment_info['description'] == 'experimento de prueba'
 
-    assert experiment_data['checkpoints']['checkpoints_folder'] == checkpoints_path
+    assert experiment_data['callbacks']['ModelCheckpoint']['filepath'] == checkpoints_path
 
 def test_keras_logger_log_non_config():
     """
