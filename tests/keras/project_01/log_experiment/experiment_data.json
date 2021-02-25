@@ -1,0 +1,535 @@
+{
+    "metrics": {
+        "epoch_0": {
+            "train_loss": 0.0,
+            "val_loss": 0.0
+        },
+        "epoch_1": {
+            "train_loss": 10.0,
+            "val_loss": 10.0
+        },
+        "epoch_2": {
+            "train_loss": 20.0,
+            "val_loss": 20.0
+        },
+        "epoch_3": {
+            "train_loss": 30.0,
+            "val_loss": 30.0
+        },
+        "epoch_4": {
+            "train_loss": 40.0,
+            "val_loss": 40.0
+        },
+        "epoch_5": {
+            "train_loss": 50.0,
+            "val_loss": 50.0
+        },
+        "epoch_6": {
+            "train_loss": 60.0,
+            "val_loss": 60.0
+        },
+        "epoch_7": {
+            "train_loss": 70.0,
+            "val_loss": 70.0
+        },
+        "epoch_8": {
+            "train_loss": 80.0,
+            "val_loss": 80.0
+        },
+        "epoch_9": {
+            "train_loss": 90.0,
+            "val_loss": 90.0
+        },
+        "epoch_10": {
+            "train_loss": 100.0,
+            "val_loss": 100.0
+        },
+        "epoch_11": {
+            "train_loss": 110.0,
+            "val_loss": 110.0
+        },
+        "epoch_12": {
+            "train_loss": 120.0,
+            "val_loss": 120.0
+        },
+        "epoch_13": {
+            "train_loss": 130.0,
+            "val_loss": 130.0
+        },
+        "epoch_14": {
+            "train_loss": 140.0,
+            "val_loss": 140.0
+        },
+        "epoch_15": {
+            "train_loss": 150.0,
+            "val_loss": 150.0
+        },
+        "epoch_16": {
+            "train_loss": 160.0,
+            "val_loss": 160.0
+        },
+        "epoch_17": {
+            "train_loss": 170.0,
+            "val_loss": 170.0
+        },
+        "epoch_18": {
+            "train_loss": 180.0,
+            "val_loss": 180.0
+        },
+        "epoch_19": {
+            "train_loss": 190.0,
+            "val_loss": 190.0
+        },
+        "epoch_20": {
+            "train_loss": 200.0,
+            "val_loss": 200.0
+        },
+        "epoch_21": {
+            "train_loss": 210.0,
+            "val_loss": 210.0
+        },
+        "epoch_22": {
+            "train_loss": 220.0,
+            "val_loss": 220.0
+        },
+        "epoch_23": {
+            "train_loss": 230.0,
+            "val_loss": 230.0
+        },
+        "epoch_24": {
+            "train_loss": 240.0,
+            "val_loss": 240.0
+        },
+        "epoch_25": {
+            "train_loss": 250.0,
+            "val_loss": 250.0
+        },
+        "epoch_26": {
+            "train_loss": 260.0,
+            "val_loss": 260.0
+        },
+        "epoch_27": {
+            "train_loss": 270.0,
+            "val_loss": 270.0
+        },
+        "epoch_28": {
+            "train_loss": 280.0,
+            "val_loss": 280.0
+        },
+        "epoch_29": {
+            "train_loss": 290.0,
+            "val_loss": 290.0
+        },
+        "epoch_30": {
+            "train_loss": 300.0,
+            "val_loss": 300.0
+        },
+        "epoch_31": {
+            "train_loss": 310.0,
+            "val_loss": 310.0
+        },
+        "epoch_32": {
+            "train_loss": 320.0,
+            "val_loss": 320.0
+        },
+        "epoch_33": {
+            "train_loss": 330.0,
+            "val_loss": 330.0
+        },
+        "epoch_34": {
+            "train_loss": 340.0,
+            "val_loss": 340.0
+        },
+        "epoch_35": {
+            "train_loss": 350.0,
+            "val_loss": 350.0
+        },
+        "epoch_36": {
+            "train_loss": 360.0,
+            "val_loss": 360.0
+        },
+        "epoch_37": {
+            "train_loss": 370.0,
+            "val_loss": 370.0
+        },
+        "epoch_38": {
+            "train_loss": 380.0,
+            "val_loss": 380.0
+        },
+        "epoch_39": {
+            "train_loss": 390.0,
+            "val_loss": 390.0
+        },
+        "epoch_40": {
+            "train_loss": 400.0,
+            "val_loss": 400.0
+        },
+        "epoch_41": {
+            "train_loss": 410.0,
+            "val_loss": 410.0
+        },
+        "epoch_42": {
+            "train_loss": 420.0,
+            "val_loss": 420.0
+        },
+        "epoch_43": {
+            "train_loss": 430.0,
+            "val_loss": 430.0
+        },
+        "epoch_44": {
+            "train_loss": 440.0,
+            "val_loss": 440.0
+        },
+        "epoch_45": {
+            "train_loss": 450.0,
+            "val_loss": 450.0
+        },
+        "epoch_46": {
+            "train_loss": 460.0,
+            "val_loss": 460.0
+        },
+        "epoch_47": {
+            "train_loss": 470.0,
+            "val_loss": 470.0
+        },
+        "epoch_48": {
+            "train_loss": 480.0,
+            "val_loss": 480.0
+        },
+        "epoch_49": {
+            "train_loss": 490.0,
+            "val_loss": 490.0
+        },
+        "epoch_50": {
+            "train_loss": 500.0,
+            "val_loss": 500.0
+        },
+        "epoch_51": {
+            "train_loss": 510.0,
+            "val_loss": 510.0
+        },
+        "epoch_52": {
+            "train_loss": 520.0,
+            "val_loss": 520.0
+        },
+        "epoch_53": {
+            "train_loss": 530.0,
+            "val_loss": 530.0
+        },
+        "epoch_54": {
+            "train_loss": 540.0,
+            "val_loss": 540.0
+        },
+        "epoch_55": {
+            "train_loss": 550.0,
+            "val_loss": 550.0
+        },
+        "epoch_56": {
+            "train_loss": 560.0,
+            "val_loss": 560.0
+        },
+        "epoch_57": {
+            "train_loss": 570.0,
+            "val_loss": 570.0
+        },
+        "epoch_58": {
+            "train_loss": 580.0,
+            "val_loss": 580.0
+        },
+        "epoch_59": {
+            "train_loss": 590.0,
+            "val_loss": 590.0
+        },
+        "epoch_60": {
+            "train_loss": 600.0,
+            "val_loss": 600.0
+        },
+        "epoch_61": {
+            "train_loss": 610.0,
+            "val_loss": 610.0
+        },
+        "epoch_62": {
+            "train_loss": 620.0,
+            "val_loss": 620.0
+        },
+        "epoch_63": {
+            "train_loss": 630.0,
+            "val_loss": 630.0
+        },
+        "epoch_64": {
+            "train_loss": 640.0,
+            "val_loss": 640.0
+        },
+        "epoch_65": {
+            "train_loss": 650.0,
+            "val_loss": 650.0
+        },
+        "epoch_66": {
+            "train_loss": 660.0,
+            "val_loss": 660.0
+        },
+        "epoch_67": {
+            "train_loss": 670.0,
+            "val_loss": 670.0
+        },
+        "epoch_68": {
+            "train_loss": 680.0,
+            "val_loss": 680.0
+        },
+        "epoch_69": {
+            "train_loss": 690.0,
+            "val_loss": 690.0
+        },
+        "epoch_70": {
+            "train_loss": 700.0,
+            "val_loss": 700.0
+        },
+        "epoch_71": {
+            "train_loss": 710.0,
+            "val_loss": 710.0
+        },
+        "epoch_72": {
+            "train_loss": 720.0,
+            "val_loss": 720.0
+        },
+        "epoch_73": {
+            "train_loss": 730.0,
+            "val_loss": 730.0
+        },
+        "epoch_74": {
+            "train_loss": 740.0,
+            "val_loss": 740.0
+        },
+        "epoch_75": {
+            "train_loss": 750.0,
+            "val_loss": 750.0
+        },
+        "epoch_76": {
+            "train_loss": 760.0,
+            "val_loss": 760.0
+        },
+        "epoch_77": {
+            "train_loss": 770.0,
+            "val_loss": 770.0
+        },
+        "epoch_78": {
+            "train_loss": 780.0,
+            "val_loss": 780.0
+        },
+        "epoch_79": {
+            "train_loss": 790.0,
+            "val_loss": 790.0
+        },
+        "epoch_80": {
+            "train_loss": 800.0,
+            "val_loss": 800.0
+        },
+        "epoch_81": {
+            "train_loss": 810.0,
+            "val_loss": 810.0
+        },
+        "epoch_82": {
+            "train_loss": 820.0,
+            "val_loss": 820.0
+        },
+        "epoch_83": {
+            "train_loss": 830.0,
+            "val_loss": 830.0
+        },
+        "epoch_84": {
+            "train_loss": 840.0,
+            "val_loss": 840.0
+        },
+        "epoch_85": {
+            "train_loss": 850.0,
+            "val_loss": 850.0
+        },
+        "epoch_86": {
+            "train_loss": 860.0,
+            "val_loss": 860.0
+        },
+        "epoch_87": {
+            "train_loss": 870.0,
+            "val_loss": 870.0
+        },
+        "epoch_88": {
+            "train_loss": 880.0,
+            "val_loss": 880.0
+        },
+        "epoch_89": {
+            "train_loss": 890.0,
+            "val_loss": 890.0
+        },
+        "epoch_90": {
+            "train_loss": 900.0,
+            "val_loss": 900.0
+        },
+        "epoch_91": {
+            "train_loss": 910.0,
+            "val_loss": 910.0
+        },
+        "epoch_92": {
+            "train_loss": 920.0,
+            "val_loss": 920.0
+        },
+        "epoch_93": {
+            "train_loss": 930.0,
+            "val_loss": 930.0
+        },
+        "epoch_94": {
+            "train_loss": 940.0,
+            "val_loss": 940.0
+        },
+        "epoch_95": {
+            "train_loss": 950.0,
+            "val_loss": 950.0
+        },
+        "epoch_96": {
+            "train_loss": 960.0,
+            "val_loss": 960.0
+        },
+        "epoch_97": {
+            "train_loss": 970.0,
+            "val_loss": 970.0
+        },
+        "epoch_98": {
+            "train_loss": 980.0,
+            "val_loss": 980.0
+        },
+        "epoch_99": {
+            "train_loss": 990.0,
+            "val_loss": 990.0
+        }
+    },
+    "model": {
+        "model_config": {
+            "name": "sequential_2",
+            "layers": [
+                {
+                    "class_name": "Dense",
+                    "config": {
+                        "name": "dense_5",
+                        "trainable": true,
+                        "dtype": "float32",
+                        "units": 10,
+                        "activation": "relu",
+                        "use_bias": true,
+                        "kernel_initializer": {
+                            "class_name": "VarianceScaling",
+                            "config": {
+                                "scale": 1.0,
+                                "mode": "fan_avg",
+                                "distribution": "uniform",
+                                "seed": null
+                            }
+                        },
+                        "bias_initializer": {
+                            "class_name": "Zeros",
+                            "config": {}
+                        },
+                        "kernel_regularizer": null,
+                        "bias_regularizer": null,
+                        "activity_regularizer": null,
+                        "kernel_constraint": null,
+                        "bias_constraint": null
+                    }
+                },
+                {
+                    "class_name": "Dense",
+                    "config": {
+                        "name": "dense_6",
+                        "trainable": true,
+                        "dtype": "float32",
+                        "units": 10,
+                        "activation": "relu",
+                        "use_bias": true,
+                        "kernel_initializer": {
+                            "class_name": "VarianceScaling",
+                            "config": {
+                                "scale": 1.0,
+                                "mode": "fan_avg",
+                                "distribution": "uniform",
+                                "seed": null
+                            }
+                        },
+                        "bias_initializer": {
+                            "class_name": "Zeros",
+                            "config": {}
+                        },
+                        "kernel_regularizer": null,
+                        "bias_regularizer": null,
+                        "activity_regularizer": null,
+                        "kernel_constraint": null,
+                        "bias_constraint": null
+                    }
+                },
+                {
+                    "class_name": "Dense",
+                    "config": {
+                        "name": "dense_7",
+                        "trainable": true,
+                        "dtype": "float32",
+                        "units": 10,
+                        "activation": "relu",
+                        "use_bias": true,
+                        "kernel_initializer": {
+                            "class_name": "VarianceScaling",
+                            "config": {
+                                "scale": 1.0,
+                                "mode": "fan_avg",
+                                "distribution": "uniform",
+                                "seed": null
+                            }
+                        },
+                        "bias_initializer": {
+                            "class_name": "Zeros",
+                            "config": {}
+                        },
+                        "kernel_regularizer": null,
+                        "bias_regularizer": null,
+                        "activity_regularizer": null,
+                        "kernel_constraint": null,
+                        "bias_constraint": null
+                    }
+                },
+                {
+                    "class_name": "Dense",
+                    "config": {
+                        "name": "dense_8",
+                        "trainable": true,
+                        "dtype": "float32",
+                        "units": 1,
+                        "activation": "sigmoid",
+                        "use_bias": true,
+                        "kernel_initializer": {
+                            "class_name": "VarianceScaling",
+                            "config": {
+                                "scale": 1.0,
+                                "mode": "fan_avg",
+                                "distribution": "uniform",
+                                "seed": null
+                            }
+                        },
+                        "bias_initializer": {
+                            "class_name": "Zeros",
+                            "config": {}
+                        },
+                        "kernel_regularizer": null,
+                        "bias_regularizer": null,
+                        "activity_regularizer": null,
+                        "kernel_constraint": null,
+                        "bias_constraint": null
+                    }
+                }
+            ]
+        },
+        "optimizer_config": {
+            "learning_rate": 0.004999999888241291,
+            "beta_1": 0.8999999761581421,
+            "beta_2": 0.9990000128746033,
+            "decay": 0.0,
+            "epsilon": 1e-07,
+            "amsgrad": false
+        }
+    }
+}

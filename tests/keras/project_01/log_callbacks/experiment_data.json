@@ -1,0 +1,16 @@
+{
+    "callbacks": {
+        "ModelCheckpoint": {
+            "validation_data": null,
+            "model": null,
+            "monitor": "val_loss",
+            "verbose": 0,
+            "filepath": "/home/hectorlopez/Datos/Proyectos/DeepLearning_Logger/tests/keras/project_01/log_callbacks/checkpoint.h5",
+            "save_best_only": false,
+            "save_weights_only": false,
+            "period": 1,
+            "epochs_since_last_save": 0,
+            "best": Infinity
+        }
+    }
+}
