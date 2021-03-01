@@ -10,7 +10,10 @@ setup(
     author='Hector Lopez Almazan',
     author_email='lopez.almazan.hector@gmail.com',
     packages=['dl_logger'],
-    install_requires=['numpy', 'tensorflow', 'typeguard'],
+    install_requires=[
+        'numpy>=1.18.0', 
+        'tensorflow>=2.0',
+        'typeguard'],
     python_requires='>=3.5',
     extras_require={
         'testing': [
