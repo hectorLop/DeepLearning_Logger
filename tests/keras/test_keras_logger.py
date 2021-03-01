@@ -1,24 +1,24 @@
-from keras.engine.training import Model
 import pytest
-import keras
 import json
 import numpy as np
 import os
 import pandas as pd
 
-from src.keras.keras_logger import Experiment
-from src.keras.configs import MetricsConfig, ModelConfig, CallbackConfig
-from keras.callbacks import ModelCheckpoint
+import tensorflow as tf
+from tensorflow.keras.callbacks import ModelCheckpoint
+
+from dl_logger.keras.keras_logger import Experiment
+from dl_logger.keras.configs import MetricsConfig, ModelConfig, CallbackConfig
 
 @pytest.fixture
 def get_model():
-    model = keras.models.Sequential()
-    model.add(keras.layers.Dense(10, activation='relu'))
-    model.add(keras.layers.Dense(10, activation='relu'))
-    model.add(keras.layers.Dense(10, activation='relu'))
-    model.add(keras.layers.Dense(1, activation='sigmoid'))
+    model = tf.keras.models.Sequential()
+    model.add(tf.keras.layers.Dense(10, activation='relu'))
+    model.add(tf.keras.layers.Dense(10, activation='relu'))
+    model.add(tf.keras.layers.Dense(10, activation='relu'))
+    model.add(tf.keras.layers.Dense(1, activation='sigmoid'))
 
-    optimizer = keras.optimizers.Adam(learning_rate=0.005)
+    optimizer = tf.keras.optimizers.Adam(learning_rate=0.005)
     model.compile(loss='categorical_crossentropy', optimizer=optimizer, metrics=['accuracy'])
 
     return model
@@ -53,7 +53,7 @@ def test_keras_logger_log_model(get_model):
         experiment_data = json.load(file)
 
     assert experiment_info['name'] == 'log_model'
-    assert experiment_data['model']['model_config']['name'] == 'sequential_1'
+    assert 'sequential' in experiment_data['model']['model_config']['name']
 
 def test_keras_logger_log_metrics(get_metrics):
     """
@@ -100,7 +100,7 @@ def test_keras_logger_log_experiment(get_metrics, get_model):
         experiment_data = json.load(file)
 
     assert experiment_info['name'] == 'log_experiment'
-    assert experiment_data['model']['model_config']['name'] == 'sequential_2'
+    assert 'sequential' in experiment_data['model']['model_config']['name']
 
     assert experiment_info['name'] == 'log_experiment'
     assert experiment_data['metrics']['epoch_0']['train_loss'] == 0

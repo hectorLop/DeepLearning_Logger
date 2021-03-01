@@ -4,7 +4,7 @@ import os
 
 from datetime import datetime
 from typing import Dict, List
-from src.keras.configs import Config
+from dl_logger.keras.configs import Config
 
 class Experiment():
     """

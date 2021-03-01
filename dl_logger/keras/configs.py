@@ -2,8 +2,8 @@ from abc import ABC, abstractmethod
 from typing import Callable
 import numpy as np
 from typeguard import typechecked
-from keras.models import Model
-from keras.callbacks import Callback
+from tensorflow.keras.models import Model
+from tensorflow.keras.callbacks import Callback
 import pandas as pd
 
 class Config(ABC):

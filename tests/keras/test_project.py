@@ -1,19 +1,19 @@
 import pytest
 import os
-import keras
+import tensorflow as tf
 
-from src.keras.project import Project
-from src.keras.configs import MetricsConfig, ModelConfig
+from dl_logger.keras.project import Project
+from dl_logger.keras.configs import ModelConfig
 
 @pytest.fixture
 def get_model():
-    model = keras.models.Sequential()
-    model.add(keras.layers.Dense(10, activation='relu'))
-    model.add(keras.layers.Dense(10, activation='relu'))
-    model.add(keras.layers.Dense(10, activation='relu'))
-    model.add(keras.layers.Dense(1, activation='sigmoid'))
+    model = tf.keras.models.Sequential()
+    model.add(tf.keras.layers.Dense(10, activation='relu'))
+    model.add(tf.keras.layers.Dense(10, activation='relu'))
+    model.add(tf.keras.layers.Dense(10, activation='relu'))
+    model.add(tf.keras.layers.Dense(1, activation='sigmoid'))
 
-    optimizer = keras.optimizers.Adam(learning_rate=0.005)
+    optimizer = tf.keras.optimizers.Adam(learning_rate=0.005)
     model.compile(loss='categorical_crossentropy', optimizer=optimizer, metrics=['accuracy'])
 
     return model

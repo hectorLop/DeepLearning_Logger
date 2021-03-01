@@ -1,5 +1,5 @@
-from src.keras.keras_logger import Experiment
-from src.keras.configs import Config
+from dl_logger.keras.keras_logger import Experiment
+from dl_logger.keras.configs import Config
 from typing import List
 
 import os
