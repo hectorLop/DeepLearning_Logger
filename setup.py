@@ -4,7 +4,7 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setup(
-    name='DeepLeaning_Logger',
+    name='deeplearning_logger',
     url='https://github.com/hectorLop/DeepLearning_Logger',
     author='Hector Lopez Almazan',
     author_email='lopez.almazan.hector@gmail.com',
