@@ -12,8 +12,9 @@ setup(
     install_requires=[
         'numpy>=1.18.0', 
         'tensorflow>=2.1.0',
+        'pandas>=1.2.0',
         'typeguard'],
-    python_requires='>=3.5',
+    python_requires='>=3.6',
     extras_require={
         'testing': [
             "pytest"
