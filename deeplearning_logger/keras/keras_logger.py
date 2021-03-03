@@ -1,10 +1,8 @@
 import json
-import pandas as pd
-import os
 
 from datetime import datetime
 from typing import Dict, List
-from dl_logger.keras.configs import Config
+from deeplearning_logger.keras.configs import Config
 
 class Experiment():
     """

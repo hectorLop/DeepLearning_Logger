@@ -1,5 +1,5 @@
-from dl_logger.keras.keras_logger import Experiment
-from dl_logger.keras.configs import Config
+from deeplearning_logger.keras.keras_logger import Experiment
+from deeplearning_logger.keras.configs import Config
 from typing import List
 
 import os
