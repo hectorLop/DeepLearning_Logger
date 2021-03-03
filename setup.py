@@ -1,18 +1,17 @@
-from setuptools import setup
+from setuptools import setup, find_packages
 
 with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setup(
-    # Needed to silence warnings (and to be a worthwhile package)
     name='DeepLeaning_Logger',
     url='https://github.com/hectorLop/DeepLearning_Logger',
     author='Hector Lopez Almazan',
     author_email='lopez.almazan.hector@gmail.com',
-    packages=['dl_logger'],
+    packages=find_packages(),
     install_requires=[
         'numpy>=1.18.0', 
-        'tensorflow>=2.0',
+        'tensorflow>=2.1.0',
         'typeguard'],
     python_requires='>=3.5',
     extras_require={
@@ -22,5 +21,4 @@ setup(
       },
     version='0.1',
     license='MIT',
-    description='An example of a python package from pre-existing code',
 )
