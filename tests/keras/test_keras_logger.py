@@ -3,12 +3,15 @@ import json
 import numpy as np
 import os
 import pandas as pd
+import shutil
 
 import tensorflow as tf
 from tensorflow.keras.callbacks import ModelCheckpoint
 
-from dl_logger.keras.keras_logger import Experiment
-from dl_logger.keras.configs import MetricsConfig, ModelConfig, CallbackConfig
+from deeplearning_logger.keras.keras_logger import Experiment
+from deeplearning_logger.keras.configs import MetricsConfig, ModelConfig, CallbackConfig
+
+from tests.keras.fixtures import get_trained_model, get_iris_data
 
 @pytest.fixture
 def get_model():
@@ -37,6 +40,9 @@ def test_keras_logger_log_model(get_model):
     """
     Tests logging an experiment containing a model
     """
+    # Creates the project and experiment folder
+    os.makedirs('tests/keras/project_01/log_model/')
+
     experiement_path = os.path.dirname(os.path.realpath(__file__)) + '/project_01/log_model/'
     configs = [ModelConfig(get_model)]
     experiment = Experiment(experiment_path=experiement_path, name='log_model', configs=configs)
@@ -55,10 +61,13 @@ def test_keras_logger_log_model(get_model):
     assert experiment_info['name'] == 'log_model'
     assert 'sequential' in experiment_data['model']['model_config']['name']
 
+    shutil.rmtree('tests/keras/project_01')
+
 def test_keras_logger_log_metrics(get_metrics):
     """
     Tests logging an experiment containing metrics
     """
+    os.makedirs('tests/keras/project_01/log_metrics/')
     experiement_path = os.path.dirname(os.path.realpath(__file__)) + '/project_01/log_metrics/'
 
     configs = [MetricsConfig(get_metrics)]
@@ -79,10 +88,13 @@ def test_keras_logger_log_metrics(get_metrics):
     assert experiment_data['metrics']['epoch_0']['train_loss'] == 0
     assert experiment_data['metrics']['epoch_0']['val_loss'] == 0
 
+    shutil.rmtree('tests/keras/project_01')
+
 def test_keras_logger_log_experiment(get_metrics, get_model):
     """
     Tests logging an experiment containing metrics
     """
+    os.makedirs('tests/keras/project_01/log_experiment/')
     experiement_path = os.path.dirname(os.path.realpath(__file__)) + '/project_01/log_experiment/'
 
     configs = [MetricsConfig(get_metrics), ModelConfig(get_model)]
@@ -106,10 +118,13 @@ def test_keras_logger_log_experiment(get_metrics, get_model):
     assert experiment_data['metrics']['epoch_0']['train_loss'] == 0
     assert experiment_data['metrics']['epoch_0']['val_loss'] == 0
 
+    shutil.rmtree('tests/keras/project_01')
+
 def test_keras_logger_log_callbacks():
     """
     Tests logging an experiment containing metrics
     """
+    os.makedirs('tests/keras/project_01/log_callbacks/')
     experiement_path = os.path.dirname(os.path.realpath(__file__)) + '/project_01/log_callbacks/'
     checkpoints_path = experiement_path + 'checkpoint.h5'
 
@@ -132,10 +147,13 @@ def test_keras_logger_log_callbacks():
 
     assert experiment_data['callbacks']['ModelCheckpoint']['filepath'] == checkpoints_path
 
+    shutil.rmtree('tests/keras/project_01')
+
 def test_keras_logger_log_non_config():
     """
     Tests logging an experiment containing a non Config object
     """
+    os.makedirs('tests/keras/project_01/log_callbacks/')
     experiement_path = os.path.dirname(os.path.realpath(__file__)) + '/project_01/log_checkpoint/'
     checkpoints_path = experiement_path + 'checkpoint.h5'
 
@@ -149,3 +167,5 @@ def test_keras_logger_log_non_config():
         experiment.register_experiment()
 
     assert str(exception_info.value) == 'ModelCheckpoint is not a Config object'
+
+    shutil.rmtree('tests/keras/project_01')
