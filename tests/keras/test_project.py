@@ -2,8 +2,8 @@ import pytest
 import os
 import tensorflow as tf
 
-from dl_logger.keras.project import Project
-from dl_logger.keras.configs import ModelConfig
+from deeplearning_logger.keras.project import Project
+from deeplearning_logger.keras.configs import ModelConfig
 
 @pytest.fixture
 def get_model():
