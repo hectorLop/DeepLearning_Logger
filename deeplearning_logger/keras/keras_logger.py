@@ -3,6 +3,7 @@ import json
 from datetime import datetime
 from typing import Dict, List
 from deeplearning_logger.keras.configs import Config
+from deeplearning_logger.json import ConfigsJSONEncoder
 
 class Experiment():
     """
@@ -30,7 +31,8 @@ class Experiment():
     _configs : List
         Configurations list.
     """
-    def __init__(self, experiment_path: str, name: str, configs: List[Config], description: str='') -> None:
+    def __init__(self, experiment_path: str, name: str, configs: List[Config],
+                 description: str='') -> None:
         self._description = description
         self._datetime = datetime.now()
         self._name = name
@@ -47,7 +49,8 @@ class Experiment():
 
         for config in self._configs:
             if not isinstance(config, Config):
-                raise ValueError(f'{config.__class__.__name__} is not a Config object')
+                raise ValueError(
+                        f'{config.__class__.__name__} is not a Config object')
             
             name, data = config.get_config()
             experiment_data[name] = data
@@ -87,7 +90,7 @@ class Experiment():
             Data to write into the JSOn file
         """
         with open(self._experiment_path + filename, 'w') as outfile:  
-            json.dump(config_data, outfile, indent=4)
+            json.dump(config_data, outfile, indent=4, cls=ConfigsJSONEncoder)
 
     def add_description(self, description: str):
         if not isinstance(description, str):

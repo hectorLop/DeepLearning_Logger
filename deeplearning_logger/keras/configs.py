@@ -38,11 +38,6 @@ class ModelConfig(Config):
         model_architecture = self._data.get_config()
         optimizer_config = self._data.optimizer.get_config()
 
-        # Numpy.float32 types are not json serializables so we must cast them to float64
-        for key, value in optimizer_config.items():
-            if isinstance(value, np.float32):
-                optimizer_config[key] = float(value) # Numpy.float64 dtype is the same as Python built-in float
-
         config = {
             'model_config': model_architecture,
             'optimizer_config': optimizer_config
