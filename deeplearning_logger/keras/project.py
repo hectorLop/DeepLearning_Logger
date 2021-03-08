@@ -3,6 +3,7 @@ from deeplearning_logger.keras.configs import Config
 from typing import List
 
 import os
+import glob
 
 class Project():
     """
@@ -27,9 +28,12 @@ class Project():
     def __init__(self, project_name: str, project_path: str) -> None:
         self._project_path = project_path
         self._project_name = project_name
-        self._project_folder_path = self._create_folder([project_path, project_name])
+        self._project_folder_path = self._create_folder([project_path,
+                                                        project_name])
 
-    def create_experiment(self, experiment_name: str='', configs: List[Config]=[], description: str='') -> None:
+    def create_experiment(self, experiment_name: str = '',
+                        configs: List[Config] = [],
+                        description: str = '') -> None:
         """
         Creates an experiment inside the project.
 
@@ -43,17 +47,38 @@ class Project():
         if not experiment_name:
             raise ValueError('Must use a non empty experiment name')
         if not configs:
-            raise ValueError('The configurations list is empty, there are nothing to log')
-
-        experiment_folder_path = self._create_folder([self._project_folder_path, experiment_name])
-        experiment = Experiment(experiment_folder_path, experiment_name, configs=configs, description=description)
+            raise ValueError('The configurations list is empty,' \
+                            'there are nothing to log')
+        
+        # Create the experiment folder
+        experiment_folder_path = self._create_folder([self._project_folder_path,
+                                                    experiment_name])
+        # Register the experiment
+        experiment = Experiment(experiment_path=experiment_folder_path,
+                                name=experiment_name,
+                                configs=configs,
+                                description=description)
         experiment.register_experiment()
 
-    def open_experiment(self):
-        pass
+    # TODO: Create an experiment from its config files
+    def open_experiment(self, experiment_name: str) -> Experiment:
+        experiment_folder = self._project_folder_path + experiment_name
+
 
     def list_experiments(self):
-        pass
+        """
+        Get the list of experiments inside a project.
+
+        Returns
+        -------
+        experiment_names : List[str] 
+            List containing the experiment names
+        """
+        # Search for directories in the project path and get the names
+        experiment_names = [path.split('/')[-2] 
+                            for path in glob.glob(self._project_folder_path)]
+
+        return experiment_names
 
     def _create_folder(self, paths: List[str]=[]) -> str:
         """
