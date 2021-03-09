@@ -17,7 +17,9 @@ def get_model():
     model.add(tf.keras.layers.Dense(1, activation='sigmoid'))
 
     optimizer = tf.keras.optimizers.Adam(learning_rate=0.005)
-    model.compile(loss='categorical_crossentropy', optimizer=optimizer, metrics=['accuracy'])
+    model.compile(loss='categorical_crossentropy',
+                optimizer=optimizer,
+                metrics=['accuracy'])
 
     return model
 
@@ -73,6 +75,16 @@ def test_create_experiment_empty_configs_exception():
     assert str(exception_info.value) == 'The configurations list is empty,'\
                                         'there are nothing to log'
 
+def test_create_project_empty_location():
+    """
+    Test a project creation with no location
+    """
+    project = Project(project_name='project_03')
+
+    assert os.path.isdir(os.getcwd() + '/project_03/')
+
+    shutil.rmtree(os.getcwd() + '/project_03/')
+
 def test_list_experiments(get_trained_model):
     """
     Test the listing the experiments inside a project
@@ -104,4 +116,5 @@ def test_list_experiments(get_trained_model):
     assert 'experiment_1' in experiments
     assert 'experiment_2' in experiments
 
-    shutil.rmtree(project_path+'/project_03/')
+    # Remove the project and its files
+    shutil.rmtree(project_path + '/project_03/')

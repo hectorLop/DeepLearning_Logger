@@ -25,9 +25,13 @@ class Project():
     _project_folder_path : str
         Path to the project folder
     """
-    def __init__(self, project_name: str, project_path: str) -> None:
+    def __init__(self, project_name: str, project_path: str = '') -> None:
         self._project_path = project_path
         self._project_name = project_name
+
+        if not project_path:
+            project_path = os.getcwd()
+
         self._project_folder_path = self._create_folder([project_path,
                                                         project_name])
 
