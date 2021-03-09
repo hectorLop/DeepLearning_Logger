@@ -64,7 +64,6 @@ class Project():
     def open_experiment(self, experiment_name: str) -> Experiment:
         experiment_folder = self._project_folder_path + experiment_name
 
-
     def list_experiments(self):
         """
         Get the list of experiments inside a project.
@@ -74,9 +73,10 @@ class Project():
         experiment_names : List[str] 
             List containing the experiment names
         """
+        path = self._project_folder_path + '*/'
         # Search for directories in the project path and get the names
         experiment_names = [path.split('/')[-2] 
-                            for path in glob.glob(self._project_folder_path)]
+                            for path in glob.glob(path)]
 
         return experiment_names
 

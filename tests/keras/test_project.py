@@ -1,9 +1,12 @@
 import pytest
 import os
 import tensorflow as tf
+import shutil
 
 from deeplearning_logger.keras.project import Project
-from deeplearning_logger.keras.configs import ModelConfig
+from deeplearning_logger.keras.configs import MetricsConfig, ModelConfig
+
+from tests.keras.fixtures import get_trained_model
 
 @pytest.fixture
 def get_model():
@@ -67,4 +70,38 @@ def test_create_experiment_empty_configs_exception():
     with pytest.raises(ValueError) as exception_info:
         project.create_experiment(experiment_name='prueba')
 
-    assert str(exception_info.value) == 'The configurations list is empty, there are nothing to log'
+    assert str(exception_info.value) == 'The configurations list is empty,'\
+                                        'there are nothing to log'
+
+def test_list_experiments(get_trained_model):
+    """
+    Test the listing the experiments inside a project
+    """
+    # Project location
+    project_path = os.path.dirname(os.path.realpath(__file__))
+    # Model and metrics to log
+    model, metrics = get_trained_model
+
+    # Create the project
+    project = Project(project_name='project_03', project_path=project_path)
+    # Create the configs to be stored
+    model_config, metric_config = ModelConfig(model), MetricsConfig(metrics)
+
+    # Create the first experiment
+    project.create_experiment(experiment_name='experiment_1', 
+                            configs=[model_config, metric_config],
+                            description='First experiment')
+
+    # Create the second experiment
+    project.create_experiment(experiment_name='experiment_2', 
+                            configs=[model_config, metric_config],
+                            description='Second experiment')
+
+    # Get the list of experiments inside the project
+    experiments = project.list_experiments()
+
+    assert experiments
+    assert 'experiment_1' in experiments
+    assert 'experiment_2' in experiments
+
+    shutil.rmtree(project_path+'/project_03/')
