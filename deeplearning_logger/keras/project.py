@@ -65,11 +65,14 @@ class Project():
         experiment.register_experiment()
 
     def open_experiment(self, experiment_name: str) -> Experiment:
+        # Create the experiment folder path
         experiment_folder = self._project_folder_path + experiment_name
+        # Create the experiment config files path
         experiment_data_file = experiment_folder + '/experiment_data.json'
         experiment_config_file = experiment_folder + '/experiment_config.json'
 
         experiment = Experiment.by_config_files(
+                                path=experiment_folder,
                                 config_info_file=experiment_config_file,
                                 config_data_file=experiment_data_file)
 

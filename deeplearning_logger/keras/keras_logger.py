@@ -1,8 +1,8 @@
 import json
 
-from datetime import datetime
+from datetime import date, datetime
 from typing import Dict, List
-from deeplearning_logger.keras.configs import Config
+from deeplearning_logger.keras.configs import *
 from deeplearning_logger.json import ConfigsJSONEncoder
 
 class Experiment():
@@ -31,13 +31,62 @@ class Experiment():
     _configs : List
         Configurations list.
     """
+    _CONFIGS_EQUIVALENCES = {
+        'metrics': MetricsConfig,
+        'model': ModelConfig,
+        'callbacks': CallbackConfig
+    }
+
     def __init__(self, experiment_path: str, name: str, configs: List[Config],
-                 description: str='') -> None:
+                 description: str='', datetime : date = None) -> None:
         self._description = description
-        self._datetime = datetime.now()
+
+        if datetime is None:
+            self._datetime = datetime.now()
+        else:
+            self._datetime = datetime
+
         self._name = name
         self._experiment_path = experiment_path
         self._configs = configs
+
+    @classmethod
+    def by_config_files(cls, path: str, config_info_file: str,
+                        config_data_file: str):
+        experiment_data = cls._parse_config_file(config_data_file)
+        experiment_config = cls._parse_config_file(config_info_file)
+
+        name, description, datetime = cls._parse_experiment_config(
+                                                            experiment_config)
+        configs = cls._parse_experiment_data(experiment_data)
+
+        return Experiment(experiment_path=path, name=name,
+                        description=description, datetime=datetime,
+                        configs=configs)
+
+    def _parse_config_file(self, config_file):
+        with open(config_file, 'r') as file:
+            config = json.load(file)
+
+        return config
+
+    # TODO: Create config objects from parsed json file
+    def _parse_experiment_data(self, experiment_data: Dict):
+        configs_list = [(key, value) for key, value in experiment_data]
+
+        configs = []
+        for config in configs_list:
+            configs.append(self._CONFIGS_EQUIVALENCES[config[0]](config[1]))
+
+        return configs
+
+    def _parse_experiment_config(self, experiment_config: Dict):
+        name = experiment_config['name']
+        description = experiment_config['description']
+        datetime = datetime.strptime(experiment_config['datetime'],
+                                        '%Y-%m-%dT%H:%M:%S')
+
+        return name, description, datetime
 
     def register_experiment(self) -> None:
         """
@@ -47,12 +96,13 @@ class Experiment():
         experiment_config = self._create_experiment_config()
         experiment_data = {}
 
-        for config in self._configs:
-            if not isinstance(config, Config):
+        for config_element in self._configs:
+            if not isinstance(config_element, Config):
                 raise ValueError(
-                        f'{config.__class__.__name__} is not a Config object')
+                        f'{config_element.__class__.__name__} is'\
+                            ' not a Config object')
             
-            name, data = config.get_config()
+            name, data = config_element.config
             experiment_data[name] = data
 
         # Write the experiments config
