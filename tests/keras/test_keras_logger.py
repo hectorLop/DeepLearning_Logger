@@ -9,7 +9,8 @@ import tensorflow as tf
 from tensorflow.keras.callbacks import ModelCheckpoint
 
 from deeplearning_logger.keras.keras_logger import Experiment
-from deeplearning_logger.keras.configs import MetricsConfig, ModelConfig, CallbackConfig
+from deeplearning_logger.keras.configs import MetricsConfig, ModelConfig, \
+                                            CallbackConfig
 
 from tests.keras.fixtures import get_trained_model
 

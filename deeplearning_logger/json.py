@@ -3,6 +3,9 @@ import numpy as np
 from typing import Any
 
 class ConfigsJSONEncoder(json.JSONEncoder):
+    """
+    JSON encoder to allow serialize numpy data types
+    """
     def default(self, o: Any) -> Any:
         if isinstance(o, np.ndarray):
             return o.tolist()
