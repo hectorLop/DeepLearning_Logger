@@ -31,6 +31,7 @@ class Experiment():
     _configs : List
         Configurations list.
     """
+
     _CONFIGS_EQUIVALENCES = {
         'metrics': MetricsConfig,
         'model': ModelConfig,
@@ -38,13 +39,13 @@ class Experiment():
     }
 
     def __init__(self, experiment_path: str, name: str, configs: List[Config],
-                 description: str='', datetime : date = None) -> None:
+                 description: str='', experiment_datetime : date = None) -> None:
         self._description = description
 
-        if datetime is None:
+        if experiment_datetime is None:
             self._datetime = datetime.now()
         else:
-            self._datetime = datetime
+            self._datetime = experiment_datetime
 
         self._name = name
         self._experiment_path = experiment_path
@@ -53,6 +54,8 @@ class Experiment():
     @classmethod
     def by_config_files(cls, path: str, config_info_file: str,
                         config_data_file: str):
+        print(config_data_file)
+        print(config_info_file)
         experiment_data = cls._parse_config_file(config_data_file)
         experiment_config = cls._parse_config_file(config_info_file)
 
@@ -60,33 +63,34 @@ class Experiment():
                                                             experiment_config)
         configs = cls._parse_experiment_data(experiment_data)
 
-        return Experiment(experiment_path=path, name=name,
-                        description=description, datetime=datetime,
-                        configs=configs)
-
-    def _parse_config_file(self, config_file):
+        return cls(experiment_path=path, name=name,
+                   description=description, experiment_datetime=datetime,
+                   configs=configs)
+    @classmethod
+    def _parse_config_file(cls, config_file):
         with open(config_file, 'r') as file:
             config = json.load(file)
 
         return config
 
-    # TODO: Create config objects from parsed json file
-    def _parse_experiment_data(self, experiment_data: Dict):
-        configs_list = [(key, value) for key, value in experiment_data]
+    @classmethod
+    def _parse_experiment_data(cls, experiment_data: Dict):
+        configs_list = [(key, value) for key, value in experiment_data.items()]
 
         configs = []
         for config in configs_list:
-            configs.append(self._CONFIGS_EQUIVALENCES[config[0]](config[1]))
+            configs.append(cls._CONFIGS_EQUIVALENCES[config[0]](config[1]))
 
         return configs
 
-    def _parse_experiment_config(self, experiment_config: Dict):
-        name = experiment_config['name']
-        description = experiment_config['description']
-        datetime = datetime.strptime(experiment_config['datetime'],
+    @classmethod
+    def _parse_experiment_config(cls, experiment_config: Dict):
+        new_name = experiment_config['name']
+        new_description = experiment_config['description']
+        new_datetime = datetime.strptime(experiment_config['datetime'],
                                         '%Y-%m-%dT%H:%M:%S')
 
-        return name, description, datetime
+        return new_name, new_description, new_datetime
 
     def register_experiment(self) -> None:
         """
@@ -141,9 +145,3 @@ class Experiment():
         """
         with open(self._experiment_path + filename, 'w') as outfile:  
             json.dump(config_data, outfile, indent=4, cls=ConfigsJSONEncoder)
-
-    def add_description(self, description: str):
-        if not isinstance(description, str):
-            raise ValueError('Description must be a string')
-        
-        self._description = description

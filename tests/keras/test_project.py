@@ -118,3 +118,12 @@ def test_list_experiments(get_trained_model):
 
     # Remove the project and its files
     shutil.rmtree(project_path + '/project_03/')
+
+def test_open_experiment():
+    project_path = os.path.dirname(os.path.realpath(__file__))
+    name = 'project_02'
+    project = Project(project_name=name, project_path=project_path)
+    experiment = project.open_experiment('experiment_1')
+
+    assert experiment._name == 'experiment_1'
+    assert isinstance(experiment._configs[0], ModelConfig)

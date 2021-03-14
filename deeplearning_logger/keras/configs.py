@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from typing import Callable, Any, Dict, Tuple
+from typing import Callable, Any, Dict, Tuple, Union
 import numpy as np
 from typeguard import typechecked
 from tensorflow.keras.models import Model
@@ -49,7 +49,7 @@ class MetricsConfig(Config):
         DataFrame containing the model metrics
     """
     @typechecked
-    def __init__(self, data: pd.DataFrame) -> None:
+    def __init__(self, data: Union[pd.DataFrame, Dict]) -> None:
         super().__init__(data)
 
     def get_config(self, data):
@@ -64,7 +64,7 @@ class MetricsConfig(Config):
 
 class ModelConfig(Config):
     @typechecked
-    def __init__(self, model: Model) -> None:
+    def __init__(self, model: Union[Model, Dict]) -> None:
         super().__init__(model)
 
     def get_config(self, data):
@@ -80,7 +80,7 @@ class ModelConfig(Config):
 
 class CallbackConfig(Config):
     @typechecked
-    def __init__(self, data: Callback) -> None:
+    def __init__(self, data: Union[Callback, Dict]) -> None:
         super().__init__(data)
 
     def get_config(self, data):
