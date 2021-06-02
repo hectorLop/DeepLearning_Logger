@@ -1,7 +1,10 @@
+from __future__ import annotations
 from typing import Dict, List
 import torch
 import torch.nn as nn
-from dataclasses import dataclass
+from dataclasses import dataclass, field
+from deeplearning_logger.json import ConfigsJSONEncoder
+import json
 
 from typing import List
 
@@ -9,8 +12,22 @@ class PytorchLogger():
     def __init__(self) -> None:
         pass
 
-    def save(data: object):
-        pass
+    def save(data: ExperimentData, experiment_name: str) -> None:
+        """
+        Saves the experiment data into a JSON file
+
+        Parameters
+        ----------
+        data : ExperimentData
+            ExperimentData object which contains the data
+        experiment_name : str
+            JSON filename
+        """
+        if not isinstance(data, ExperimentData):
+            raise ValueError('The data must be an ExperimentData object')
+        
+        with open(experiment_name, 'w') as outfile:  
+            json.dump(data.__dict__, outfile, indent=4, cls=ConfigsJSONEncoder)
 
 @dataclass
 class ExperimentData():
@@ -48,8 +65,8 @@ class ExperimentData():
     checkpoint: str = ''
     architecture: str = ''
     epochs: int = 0
-    train_losses: List[float] = []
-    val_losses: List[float] = []
-    train_metrics: List[Dict] = []
-    val_metrics: List[Dict] = []
-    test_metrics: Dict = {}
+    train_losses: List[float] = field(default_factory=list)
+    val_losses: List[float] = field(default_factory=list)
+    train_metrics: List[Dict] = field(default_factory=list)
+    val_metrics: List[Dict] = field(default_factory=list)
+    test_metrics: Dict = field(default_factory=dict)
