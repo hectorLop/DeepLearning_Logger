@@ -2,17 +2,23 @@ from __future__ import annotations
 from typing import Dict, List
 import torch
 import torch.nn as nn
-from dataclasses import dataclass, field
+from dataclasses import dataclass, field, fields
 from deeplearning_logger.json import ConfigsJSONEncoder
 import json
+import os
+import typing
 
 from typing import List
 
 class PytorchLogger():
-    def __init__(self) -> None:
-        pass
+    def __init__(self, project_folder: str = '') -> None:
+        if not project_folder:
+            self.project_path = os.getcwd()
+        else:
+            # This method adds the '/' at the end if it is not already added
+            self.project_path = os.path.join(project_folder, '')
 
-    def save(data: ExperimentData, experiment_name: str) -> None:
+    def save(self, data: ExperimentData, experiment_name: str) -> None:
         """
         Saves the experiment data into a JSON file
 
@@ -26,7 +32,7 @@ class PytorchLogger():
         if not isinstance(data, ExperimentData):
             raise ValueError('The data must be an ExperimentData object')
         
-        with open(experiment_name, 'w') as outfile:  
+        with open(f'{experiment_name}.json', 'w') as outfile:  
             json.dump(data.__dict__, outfile, indent=4, cls=ConfigsJSONEncoder)
 
 @dataclass
@@ -63,10 +69,25 @@ class ExperimentData():
     optimizer: str = ''
     weight_decay: float = 0.0
     checkpoint: str = ''
-    architecture: str = ''
+    architecture: nn.Module = None
     epochs: int = 0
-    train_losses: List[float] = field(default_factory=list)
-    val_losses: List[float] = field(default_factory=list)
-    train_metrics: List[Dict] = field(default_factory=list)
-    val_metrics: List[Dict] = field(default_factory=list)
-    test_metrics: Dict = field(default_factory=dict)
+    train_losses: list = field(default_factory=list)
+    val_losses: list = field(default_factory=list)
+    train_metrics: list = field(default_factory=list)
+    val_metrics: list = field(default_factory=list)
+    test_metrics: dict = field(default_factory=dict)
+
+    def validate(self, instance):
+        for field in fields(instance):
+            attr = getattr(instance, field.name)
+            attr_type = typing.get_type_hints(ExperimentData)[field.name]
+
+            if not isinstance(attr, attr_type):
+                msg = f'Field {field.name} is of type {type(attr)}, should be {attr_type}'
+
+                raise ValueError(msg)
+
+    def __post_init__(self):
+        self.validate(self)
+        # Gets the model architecture
+        self.architecture = str(self.architecture)
