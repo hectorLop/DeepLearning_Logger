@@ -77,17 +77,19 @@ class ExperimentData():
     val_metrics: list = field(default_factory=list)
     test_metrics: dict = field(default_factory=dict)
 
-    def validate(self, instance):
+    def validate_types(self, instance: ExperimentData):
         for field in fields(instance):
             attr = getattr(instance, field.name)
             attr_type = typing.get_type_hints(ExperimentData)[field.name]
-
+            print(field)
             if not isinstance(attr, attr_type):
-                msg = f'Field {field.name} is of type {type(attr)}, should be {attr_type}'
+                msg = (
+                    f'Field {field.name} is of type {type(attr)}, it ',  
+                    f'must be {attr_type}')
 
                 raise ValueError(msg)
 
     def __post_init__(self):
-        self.validate(self)
+        self.validate_types(self)
         # Gets the model architecture
         self.architecture = str(self.architecture)
