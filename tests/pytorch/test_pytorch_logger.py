@@ -1,5 +1,6 @@
 from deeplearning_logger.pytorch.pytorch_logger import PytorchLogger, \
                                                         ExperimentData
+from deeplearning_logger.pytorch.experiment_data import ModelData, MetricsData, OptimizerData
 from tests.pytorch.test_utils import CustomModel
 import pytest
 import torch
@@ -10,11 +11,17 @@ import os
 def test_pytorch_logger():
     model = CustomModel()
 
+    # Create the logger
     logger = PytorchLogger()
+
+    # Model and optimizer data
+    model_data = ModelData(architecture=model)
+    optimizer_data = OptimizerData(lr=0.0001, optimizer='adam')
+
+    # Experiment data
     ex_data = ExperimentData(
-            lr=0.0001,
-            architecture=model,
-            optimizer='adam'
+            model=model_data,
+            optimizer=optimizer_data
             )
 
     logger.save(ex_data, 'prueba')

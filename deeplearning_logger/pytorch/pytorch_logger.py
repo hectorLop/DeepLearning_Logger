@@ -1,14 +1,10 @@
 from __future__ import annotations
-from typing import Dict, List
-import torch
-import torch.nn as nn
-from dataclasses import dataclass, field, fields
+from typing import Dict
 from deeplearning_logger.json import ConfigsJSONEncoder
+from deeplearning_logger.pytorch.experiment_data import MetricsData, ModelData,\
+                                                        OptimizerData
 import json
 import os
-import typing
-
-from typing import List
 
 class PytorchLogger():
     def __init__(self, project_folder: str = '') -> None:
@@ -33,63 +29,52 @@ class PytorchLogger():
             raise ValueError('The data must be an ExperimentData object')
         
         with open(f'{experiment_name}.json', 'w') as outfile:  
-            json.dump(data.__dict__, outfile, indent=4, cls=ConfigsJSONEncoder)
+            json.dump(data.get(), outfile, indent=4, cls=ConfigsJSONEncoder)
 
-@dataclass
 class ExperimentData():
     """
     This class defines the data related to an experiment.
 
+    Parameters
+    ----------
+    model : ModelData
+        Data object containing the model related data
+    metrics : MetricsData
+        Data object containing the metrics related data
+    optimizer : OptimizerData
+        Data object containing the optimizer related data
+
     Attributes
     ----------
-    lr : float
-        Learning rate used in the experiment. Default is 0.0
-    optimizer : str
-        Optimizer name used in the experiment.
-    weight_decay : float
-        L2 regularization term. Default is 0.0
-    checkpoint : str
-        Final checkpoint path
-    architecture : str
-        Model architecture used in the training
-    epochs : str
-        Number of epochs used in the experiment
-    train_losses : list of float
-        List containing the training loss for each epoch
-    val_losses : list of float
-        List containing the validation loss for each epoch
-    train_metrics : list of dict
-        List containing the training metrics dictionary for each epoch
-    val_metrics : list of dict
-        List containing tje validation metrics dictionary for each epoch
-    test_metrics : dict
-        Dictionary containing the test metrics
+    data : list
+        List containig the experiment related data
     """
-    lr: float = 0.0
-    optimizer: str = ''
-    weight_decay: float = 0.0
-    checkpoint: str = ''
-    architecture: nn.Module = None
-    epochs: int = 0
-    train_losses: list = field(default_factory=list)
-    val_losses: list = field(default_factory=list)
-    train_metrics: list = field(default_factory=list)
-    val_metrics: list = field(default_factory=list)
-    test_metrics: dict = field(default_factory=dict)
+    def __init__(self, model: ModelData = ModelData(),
+                 metrics: MetricsData = MetricsData(),
+                 optimizer: OptimizerData = OptimizerData()) -> None:
+        if not isinstance(model, ModelData):
+            raise TypeError(f'model parameter must be a ModelData object')
 
-    def validate_types(self, instance: ExperimentData):
-        for field in fields(instance):
-            attr = getattr(instance, field.name)
-            attr_type = typing.get_type_hints(ExperimentData)[field.name]
-            print(field)
-            if not isinstance(attr, attr_type):
-                msg = (
-                    f'Field {field.name} is of type {type(attr)}, it ',  
-                    f'must be {attr_type}')
+        if not isinstance(metrics, MetricsData):
+            raise TypeError(f'metrics parameter must be a MetricsData object')
 
-                raise ValueError(msg)
+        if not isinstance(optimizer, OptimizerData):
+            raise TypeError(f'optimizer parameter must be a OptimizerData object')
+            
+        self.data = [model, metrics, optimizer]
 
-    def __post_init__(self):
-        self.validate_types(self)
-        # Gets the model architecture
-        self.architecture = str(self.architecture)
+    def get(self) -> Dict:
+        """
+        Gets the experiment data as a dictionary
+
+        Returns
+        -------
+        data : dict
+            Dictionary containing the experiment data
+        """
+        data = {}  
+
+        for element in self.data:
+            data.update(element.get())
+
+        return data    
