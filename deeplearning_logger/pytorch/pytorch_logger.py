@@ -51,7 +51,8 @@ class ExperimentData():
     """
     def __init__(self, model: ModelData = ModelData(),
                  metrics: MetricsData = MetricsData(),
-                 optimizer: OptimizerData = OptimizerData()) -> None:
+                 optimizer: OptimizerData = OptimizerData(),
+                 annotations: str = '') -> None:
         if not isinstance(model, ModelData):
             raise TypeError(f'model parameter must be a ModelData object')
 
@@ -62,6 +63,7 @@ class ExperimentData():
             raise TypeError(f'optimizer parameter must be a OptimizerData object')
             
         self.data = [model, metrics, optimizer]
+        self.annotations = {'annotations': annotations}
 
     def get(self) -> Dict:
         """
@@ -76,5 +78,7 @@ class ExperimentData():
 
         for element in self.data:
             data.update(element.get())
+
+        data.update(self.annotations)
 
         return data    
