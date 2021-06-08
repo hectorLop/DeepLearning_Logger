@@ -13,7 +13,7 @@ class Data(ABC):
         for field in fields(instance):
             attr = getattr(instance, field.name)
             attr_type = typing.get_type_hints(class_type)[field.name]
-            print(attr)
+
             if attr is not None and not isinstance(attr, attr_type):
                 msg = (
                     f'Field {field.name} is of type {type(attr)}, it ',  

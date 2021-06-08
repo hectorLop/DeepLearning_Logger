@@ -1,12 +1,15 @@
 from deeplearning_logger.pytorch.pytorch_logger import PytorchLogger, \
                                                         ExperimentData
-from deeplearning_logger.pytorch.experiment_data import ModelData, MetricsData, OptimizerData
+from deeplearning_logger.pytorch.experiment_data import ModelData, OptimizerData
 from tests.pytorch.test_utils import CustomModel
 import pytest
 import json
 import os
 
 def test_default_pytorch_logger():
+    """
+    Test the PytorchLogger default behaviour.
+    """
     logger = PytorchLogger()
 
     experiment = ExperimentData()
@@ -21,7 +24,12 @@ def test_default_pytorch_logger():
     assert data['optimizer'] == ''
     assert not data['train_losses']
 
+    os.remove('default_ex.json')
+
 def test_pytorch_logger():
+    """
+    Test a PytorchLogger which logs custom model and optimizer data
+    """
     model = CustomModel()
 
     # Create the logger
@@ -49,6 +57,9 @@ def test_pytorch_logger():
     os.remove('prueba.json')
 
 def test_pytorch_logger_annotations():
+    """
+    Test a PytorchLogger with annotations
+    """
     logger = PytorchLogger()
 
     annotations = 'This is a test'
@@ -60,3 +71,22 @@ def test_pytorch_logger_annotations():
         data = json.load(file)
 
     assert data['annotations'] == annotations
+
+    os.remove('default_ex.json')
+
+def test_pytorch_logger_same_filename_exception():
+    """
+    Test the PytorchLogger exception when an experiment with the same name
+    already exists.
+    """
+    logger = PytorchLogger()
+
+    annotations = 'This is a test'
+    experiment = ExperimentData(annotations=annotations)
+
+    logger.save(experiment, 'prueba')
+
+    with pytest.raises(ValueError):
+        logger.save(experiment, 'prueba')
+
+    os.remove('prueba.json')

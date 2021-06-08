@@ -10,6 +10,7 @@ class PytorchLogger():
     def __init__(self, project_folder: str = '') -> None:
         if not project_folder:
             self.project_path = os.getcwd()
+            self.project_path = os.path.join(self.project_path, '')
         else:
             # This method adds the '/' at the end if it is not already added
             self.project_path = os.path.join(project_folder, '')
@@ -27,8 +28,11 @@ class PytorchLogger():
         """
         if not isinstance(data, ExperimentData):
             raise ValueError('The data must be an ExperimentData object')
+
+        if os.path.isfile(f'{self.project_path}{experiment_name}.json'):
+            raise ValueError('There is already an experiment with that name')
         
-        with open(f'{experiment_name}.json', 'w') as outfile:  
+        with open(f'{self.project_path}{experiment_name}.json', 'w') as outfile:    
             json.dump(data.get(), outfile, indent=4, cls=ConfigsJSONEncoder)
 
 class ExperimentData():
