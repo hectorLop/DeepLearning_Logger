@@ -5,6 +5,7 @@ with open("README.md", "r") as fh:
 
 setup(
     name='deeplearning_logger',
+    version='0.1',
     url='https://github.com/hectorLop/DeepLearning_Logger',
     author='Hector Lopez Almazan',
     author_email='lopez.almazan.hector@gmail.com',
@@ -13,7 +14,8 @@ setup(
         'numpy>=1.18.0', 
         'tensorflow>=2.1.0',
         'pandas>=1.2.0',
-        'typeguard'],
+        'typeguard',
+        'torch>=1.6.0'],
     python_requires='>=3.6',
     extras_require={
         'testing': [
