@@ -5,7 +5,6 @@ with open("README.md", "r") as fh:
 
 setup(
     name='deeplearning_logger',
-    version='0.1',
     url='https://github.com/hectorLop/DeepLearning_Logger',
     author='Hector Lopez Almazan',
     author_email='lopez.almazan.hector@gmail.com',
