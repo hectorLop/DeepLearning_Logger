@@ -1,5 +1,5 @@
 ## Requirements
-keras
+tensorflow
 numpy
 pytest
 pandas
