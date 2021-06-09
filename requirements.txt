@@ -3,3 +3,4 @@ keras
 numpy
 pytest
 pandas
+torch
