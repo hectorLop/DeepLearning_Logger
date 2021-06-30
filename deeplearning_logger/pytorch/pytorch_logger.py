@@ -5,6 +5,7 @@ from deeplearning_logger.pytorch.experiment_data import MetricsData, ModelData,\
                                                         OptimizerData
 import json
 import os
+from datetime import date, datetime
 
 class PytorchLogger():
     def __init__(self, project_folder: str = '') -> None:
@@ -67,7 +68,30 @@ class ExperimentData():
             raise TypeError(f'optimizer parameter must be a OptimizerData object')
             
         self.data = [model, metrics, optimizer]
-        self.annotations = {'annotations': annotations}
+        self._annotations = {'annotations': annotations}
+        self._datetime = self._get_date_and_time()
+
+    def _get_datetime(self):
+        """
+        Get the experiment timestamp
+
+        Returns
+        -------
+        datetime_data : dict
+            Dictionary containing both the date and time where the experiment
+            was done
+        """
+        now = datetime.now()
+
+        date = now.strftime('%d/%m/%Y')
+        time = now.strftime('%H:%M:%S')
+
+        datetime_date = {
+            'date': date,
+            'time': time
+        }
+
+        return datetime_date
 
     def get(self) -> Dict:
         """
@@ -83,6 +107,8 @@ class ExperimentData():
         for element in self.data:
             data.update(element.get())
 
-        data.update(self.annotations)
+        # Adds to the dictionary both the annotations and the datetime
+        data.update(self._annotations)
+        data.update(self._datetime)
 
         return data    
