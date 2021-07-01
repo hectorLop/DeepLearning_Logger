@@ -69,7 +69,7 @@ class ExperimentData():
             
         self.data = [model, metrics, optimizer]
         self._annotations = {'annotations': annotations}
-        self._datetime = self._get_date_and_time()
+        self._datetime = self._get_datetime()
 
     def _get_datetime(self):
         """
